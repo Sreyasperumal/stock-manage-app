@@ -16,18 +16,32 @@ app.use(express.json())
 app.use(cookieParser());
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
 
-// app.use(cors({ 
-//     orgin:["http://localhost:3000","https://invent-app.vercel.app"],
-//     credentials:true
-// }));
+// const cors = require('cors');
+const whitelist = ['http://localhost:3000','https://invent-app.vercel.app'];
+const corsOptions = {
+  credentials: true, // This is important.
+  origin: (origin, callback) => {
+    if(whitelist.includes(origin))
+      return callback(null, true)
+
+      callback(new Error('Not allowed by CORS'));
+  }
+}
+
+ app.use(cors(corsOptions));
+// app.use(function(req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+//     next();
+// });
+
+//  app.use(cors({ 
+//      orgin:['http://localhost:3000','https://invent-app.vercel.app'],
+//      credentials:true
+//  }));
 
 app.use("/uploads",express.static(path.join(__dirname,"uploads")))
 
