@@ -19,18 +19,18 @@ app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // const cors = require('cors');
-const whitelist = ['http://localhost:3000','https://i-stock-manage-frontend.vercel.app/'];
-const corsOptions = {
-  credentials: true, // This is important.
-  origin: (origin, callback) => {
-    if(whitelist.includes(origin))
-      return callback(null, true)
+// const whitelist = ['http://localhost:3000','https://invent-stock-manage.vercel.app/'];
+// const corsOptions = {
+//   credentials: true, // This is important.
+//   origin: (origin, callback) => {
+//     if(whitelist.includes(origin))
+//       return callback(null, true)
 
-      callback(new Error('Not allowed by CORS'));
-  }
-}
+//       callback(new Error('Not allowed by CORS'));
+//   }
+// }
 
- app.use(cors(corsOptions));
+//  app.use(cors(corsOptions));
 // app.use(function(req, res, next) {
 //     res.setHeader('Access-Control-Allow-Origin', '*');
 //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
@@ -39,10 +39,10 @@ const corsOptions = {
 //     next();
 // });
 
-//  app.use(cors({ 
-//      orgin:['http://localhost:3000','https://invent-app.vercel.app'],
-//      credentials:true
-//  }));
+ app.use(cors({ 
+     orgin:['http://localhost:3000','https://invent-stock-manage.vercel.app'],
+     credentials:true
+ }));
 
 app.use("/uploads",express.static(path.join(__dirname,"uploads")))
 
