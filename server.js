@@ -8,7 +8,8 @@ const userRoutes = require("./routes/userRoutes")
 const productRoute = require("./routes/productRoute")
 const contactRoute = require("./routes/contactRoute")
 const cookieParser = require("cookie-parser")
-const path = require("path")
+const path = require("path");
+const router = require("./routes/contactRoute");
 
 const app = express()
 //middlewares
@@ -18,7 +19,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // const cors = require('cors');
-const whitelist = ['http://localhost:3000','https://invent-app.vercel.app'];
+const whitelist = ['http://localhost:3000','https://i-stock-manage-frontend.vercel.app/'];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {
