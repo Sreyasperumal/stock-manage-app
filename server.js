@@ -2,7 +2,7 @@ const dotenv = require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+//const cors = require("cors");
 const errorHandler = require("./middleware/errMiddleware");
 const userRoutes = require("./routes/userRoutes")
 const productRoute = require("./routes/productRoute")
@@ -18,19 +18,19 @@ app.use(cookieParser());
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// const cors = require('cors');
-// const whitelist = ['http://localhost:3000','https://invent-stock-manage.vercel.app/'];
-// const corsOptions = {
-//   credentials: true, // This is important.
-//   origin: (origin, callback) => {
-//     if(whitelist.includes(origin))
-//       return callback(null, true)
+const cors = require('cors');
+const whitelist = ['http://localhost:3000','https://invent-stock-manage.vercel.app'];
+const corsOptions = {
+  credentials: true, // This is important.
+  origin: (origin, callback) => {
+    if(whitelist.includes(origin))
+      return callback(null, true)
 
-//       callback(new Error('Not allowed by CORS'));
-//   }
-// }
+      callback(new Error('Not allowed by CORS'));
+  }
+}
 
-//  app.use(cors(corsOptions));
+ app.use(cors(corsOptions));
 // app.use(function(req, res, next) {
 //     res.setHeader('Access-Control-Allow-Origin', '*');
 //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
@@ -39,12 +39,12 @@ app.use(bodyParser.json());
 //     next();
 // });
 
- app.use(cors({ 
-     orgin:['http://localhost:3000','https://invent-stock-manage.vercel.app'],
-     credentials:true
- }));
+//  app.use(cors({ 
+//      orgin:['http://localhost:3000','https://invent-stock-manage.vercel.app'],
+//      credentials:true
+//  }));
 
-app.use("/uploads",express.static(path.join(__dirname,"uploads")))
+// app.use("/uploads",express.static(path.join(__dirname,"uploads")))
 
 //routes middlewares
 app.use("/api/user",userRoutes);
